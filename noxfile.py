@@ -269,6 +269,111 @@ def initialize_database(session: nox.Session):
         session.run("python", script_path)
 
 
+###############
+# Code checks #
+###############
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="vulture-check", tags=["quality"])
+def run_vulture_check(session: nox.Session):
+    session.install(f"vulture")
+
+    log.info("Checking for dead code with vulture")
+    session.run("vulture", "src/weathersched", "--min-confidence", "100")
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="detect-secrets", tags=["quality"])
+def scan_for_secrets(session: nox.Session):
+    session.install("detect-secrets")
+
+    log.info("Scanning project for secrets")
+    session.run("detect-secrets", "scan")
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="radon-code-complexity", tags=["quality"])
+def radon_code_complexity(session: nox.Session):
+    session.install("radon")
+
+    log.info("Getting code complexity score")
+    session.run(
+        "radon",
+        "cc",
+        "src/weathersched",
+        "-s",
+        "-a",
+        "--total-average",
+        "-nc",
+        # "-j",
+        # "-O",
+        # "radon_complexity_results.json",
+    )
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="radon-raw", tags=["quality"])
+def radon_raw(session: nox.Session):
+    session.install("radon")
+
+    log.info("Running radon raw scan")
+    session.run(
+        "radon",
+        "raw",
+        "src/weathersched",
+        "-s",
+        # "-j",
+        # "-O",
+        # "radon_raw_results.json"
+    )
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="radon-maintainability", tags=["quality"])
+def radon_maintainability(session: nox.Session):
+    session.install("radon")
+
+    log.info("Running radon maintainability scan")
+    session.run(
+        "radon",
+        "mi",
+        "src/weathersched",
+        "-n",
+        "C",
+        "-x",
+        "F",
+        "-s",
+        # "-j",
+        # "-O",
+        # "radon_maitinability_results.json",
+    )
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="radon-halstead", tags=["quality"])
+def radon_halstead(session: nox.Session):
+    session.install("radon")
+
+    log.info("Running radon Halstead metrics scan")
+    session.run(
+        "radon",
+        "hal",
+        "src/weathersched",
+        "-f",
+        # "-j",
+        # "-O",
+        # "radon_halstead_results.json",
+    )
+
+
+@nox.session(python=[DEFAULT_PYTHON], name="xenon", tags=["quality"])
+def xenon_scan(session: nox.Session):
+    session.install("xenon")
+
+    log.info("Scanning complexity with xenon")
+    try:
+        session.run("xenon", "-b", "B", "-m", "C", "-a", "C", "src/weathersched")
+    except Exception as exc:
+        log.warning(
+            f"\nNote: For some reason, this always 'fails' with exit code 1. Xenon still works when running in a Nox session, it seems this error can be ignored."
+        )
+
+
 ####################
 # Alembic Sessions #
 ####################
