@@ -5,11 +5,7 @@ import time
 
 log = logging.getLogger(__name__)
 
-from weathersched.remote_apis.weatherapi_client.settings import weatherapi_settings
-
-from . import requests
-from .__methods import save_current_weather, save_forecast, save_location
-
+from weathersched.core import http_lib
 from weathersched.domain.location import LocationIn, LocationOut
 from weathersched.domain.schemas import APIResponseCurrentWeather
 from weathersched.domain.weather.current import (
@@ -20,9 +16,12 @@ from weathersched.domain.weather.current import (
     CurrentWeatherIn,
     CurrentWeatherOut,
 )
-from weathersched.core import http_lib
-import httpx
+from weathersched.remote_apis.weatherapi_client.settings import weatherapi_settings
 
+from . import requests
+from .__methods import save_current_weather, save_forecast, save_location
+
+import httpx
 
 def get_current_weather(
     location: str = weatherapi_settings.location,

@@ -1,12 +1,13 @@
+from __future__ import annotations
+
 import logging
 
 log = logging.getLogger(__name__)
 
-from weathersched.core import setup, db, http_lib
+from weathersched.core import db, http_lib, setup
 from weathersched.core.setup import LOGGING_SETTINGS
-from weathersched.domain import weather, location
+from weathersched.domain import location, weather
 from weathersched.remote_apis import weatherapi_client
-
 
 def main():
     log.info("Start weathersched")

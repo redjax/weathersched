@@ -5,11 +5,7 @@ import time
 
 log = logging.getLogger(__name__)
 
-from weathersched.remote_apis.weatherapi_client.settings import weatherapi_settings
-
-from . import requests
-from .__methods import save_forecast, save_location
-
+from weathersched.core import http_lib
 from weathersched.domain.location import LocationIn, LocationOut
 from weathersched.domain.schemas import APIResponseForecastWeather
 from weathersched.domain.weather.forecast import ForecastJSONIn, ForecastJSONOut
@@ -19,9 +15,12 @@ from weathersched.domain.weather.weather_alerts import (
     WeatherAlertsIn,
     WeatherAlertsOut,
 )
-from weathersched.core import http_lib
-import httpx
+from weathersched.remote_apis.weatherapi_client.settings import weatherapi_settings
 
+from . import requests
+from .__methods import save_forecast, save_location
+
+import httpx
 
 def get_weather_forecast(
     location: str = weatherapi_settings.location,

@@ -7,10 +7,10 @@ import typing as t
 log = logging.getLogger(__name__)
 
 from weathersched.core.db import Base, annotated
+
 import sqlalchemy as sa
 import sqlalchemy.exc as sa_exc
 import sqlalchemy.orm as so
-
 
 class CurrentWeatherModel(Base):
     __tablename__ = "weatherapi_current_weather"

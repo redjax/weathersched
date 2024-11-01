@@ -4,10 +4,9 @@ import logging
 
 log = logging.getLogger(__name__)
 
+from weathersched.core import http_lib, setup
+
 from .settings import WEATHERAPI_SETTINGS, weatherapi_settings
-
-from weathersched.core import setup, http_lib
-
 
 def get_current_weather(
     location: str = weatherapi_settings.location,

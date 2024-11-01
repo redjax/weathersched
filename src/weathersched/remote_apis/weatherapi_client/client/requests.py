@@ -4,11 +4,10 @@ import logging
 
 log = logging.getLogger(__name__)
 
+from weathersched.core import http_lib
 from weathersched.remote_apis.weatherapi_client.constants import WEATHERAPI_BASE_URL
 
-from weathersched.core import http_lib
 import httpx
-
 
 def return_current_weather_request(
     api_key: str, location: str, include_aqi: bool = False, headers: dict | None = None

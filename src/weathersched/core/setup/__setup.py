@@ -4,9 +4,8 @@ import logging
 
 log: logging.Logger = logging.getLogger(__name__)
 
-from weathersched.core.constants import IGNORE_LOGGERS
-
 from weathersched.core import db
+from weathersched.core.constants import IGNORE_LOGGERS
 from weathersched.core.depends import db_depends
 
 from dynaconf import Dynaconf
