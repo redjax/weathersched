@@ -7,11 +7,11 @@ import typing as t
 log = logging.getLogger(__name__)
 
 from weathersched.core.db import Base, annotated
+
 import sqlalchemy as sa
 import sqlalchemy.exc as sa_exc
 import sqlalchemy.orm as so
 from sqlalchemy.types import JSON
-
 
 class ForecastJSONModel(Base):
     __tablename__ = "weatherapi_forecast_json"

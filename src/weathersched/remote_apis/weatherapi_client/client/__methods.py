@@ -5,9 +5,7 @@ import time
 
 log = logging.getLogger(__name__)
 
-from . import requests
-from ..settings import weatherapi_settings
-
+from weathersched.core import http_lib
 from weathersched.core.depends.db_depends import get_session_pool
 from weathersched.domain.location import (
     LocationIn,
@@ -38,9 +36,11 @@ from weathersched.domain.weather.forecast import (
     ForecastJSONOut,
     ForecastJSONRepository,
 )
-from weathersched.core import http_lib
-import httpx
 
+from . import requests
+from ..settings import weatherapi_settings
+
+import httpx
 
 def save_location(location: LocationIn) -> LocationOut:
     session_pool = get_session_pool()

@@ -17,10 +17,10 @@ from weathersched.domain.location import models
 from weathersched.domain.weather.current import models
 from weathersched.domain.weather.forecast import models
 from weathersched.domain.weather.weather_alerts import models
+
 import sqlalchemy as sa
 import sqlalchemy.exc as sa_exc
 import sqlalchemy.orm as so
-
 
 def init_pg_database(create_dbs: list[str], engine: sa.Engine = None):
     log.info("START init postgres database")

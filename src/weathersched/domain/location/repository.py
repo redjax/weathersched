@@ -5,13 +5,13 @@ import typing as t
 
 log = logging.getLogger(__name__)
 
+from weathersched.core.db.base import BaseRepository
+
 from .models import LocationModel
 
-from weathersched.core.db.base import BaseRepository
 import sqlalchemy as sa
 import sqlalchemy.exc as sa_exc
 import sqlalchemy.orm as so
-
 
 class LocationRepository(BaseRepository[LocationModel]):
     def __init__(self, session: so.Session):
