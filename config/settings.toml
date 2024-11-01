@@ -1,0 +1,7 @@
+[default]
+
+log_level = "INFO"
+
+[logging]
+
+# log_level = "DEBUG"
